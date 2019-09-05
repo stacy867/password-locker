@@ -55,8 +55,8 @@ class TestUser(unittest.TestCase):
         '''
         save_acct test case is to test if the account is being saved
         '''
-          self.new_credential.save_acct()
-          self.assertEqual(len(Credential.credential_list),1)  
+        self.new_credential.save_acct()
+        self.assertEqual(len(Credential.credential_list),3)  
 if __name__ == '__main__':
     unittest.main()        
               
