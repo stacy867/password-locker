@@ -52,7 +52,7 @@ def find_credential(em_address):
     '''
     function that finds the credential
     '''
-    return Credential.find_credentials(em_address)
+    return Credential.find_by_email1(em_address)
 
 
 
@@ -141,17 +141,17 @@ def main():
             else:
                 print("your new generated password is:")
                 new_passwd= randomString(5)
-                print(new_password)
+                print(new_passwd)
                 save_credentials(add_credential(account_name,e_address,username,new_passwd))
             print('\n')
             print('\n')
-            print(f"new credential {account_name} {username} {e_address} {new_password} created")
+            print(f"new credential {account_name} {username} {e_address} {new_passwd} created")
                 
         elif short_code == 'vc':
             if view_credential():
                 print("here is a list of created credentials")
                 print('\n')
-                for cred in view_credentials():
+                for cred in view_credential():
                     print(f"{cred.account} {cred.username} {cred.password} {cred.email}")
                     print('\n')
                     
@@ -165,12 +165,13 @@ def main():
             e_address= input()
             if check_account_exist(e_address):
                 searched_email= find_credential(e_address)
-                print(f"{searched_email.name},{searched_email.email}")
+                print(f"{searched_email.username},{searched_email.email}")
                 print('-'*20)
                 print(f"AccountName.....{searched_email.account}")
                 print(f"Email.....{searched_email.email}")
-                print(f"username.....{searched_email.name}")
-                                
+                print(f"username.....{searched_email.username}")
+            else:
+                print("the account does not exist")                    
                     
             
 if __name__ == '__main__':
