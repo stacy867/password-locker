@@ -48,6 +48,13 @@ def find_user(e_address):
     function that finds a user by email and returns the email
     '''
     return User.find_by_email(e_address)
+def find_credential(em_address):
+    '''
+    function that finds the credential
+    '''
+    return Credential.find_credentials(em_address)
+
+
 
 def check_account_exist(e_address):
     '''
@@ -68,7 +75,7 @@ def view_credential():
     '''
     a function to view various account credentials
     '''
-    return Credential.view_credential()  
+    return Credential.display_credentials()  
 
 
 def main():
@@ -79,7 +86,7 @@ def main():
     print(f"hello {user_name}.choose what u would like to do")
     
     while True:
-        print("Use these short codes while choosing: cc -create an account, vc -view credentials, dc -delete credential, ac -add credential, fc -find account")
+        print("Use these short codes while choosing: cc -create an account, vc -view credentials, dc -delete credential, ac -add credential, fc -find credentials")
         
         short_code=input().lower()
         
@@ -134,12 +141,37 @@ def main():
             else:
                 print("your new generated password is:")
                 new_passwd= randomString(5)
-                print(new_passwd)
-                save_credential(add_credential(account_name,e_address,username,new_passwd))
+                print(new_password)
+                save_credentials(add_credential(account_name,e_address,username,new_passwd))
             print('\n')
-            print(f"new credential {account_name} {username} {e_address} {new_passwd}")
+            print('\n')
+            print(f"new credential {account_name} {username} {e_address} {new_password} created")
                 
+        elif short_code == 'vc':
+            if view_credential():
+                print("here is a list of created credentials")
+                print('\n')
+                for cred in view_credentials():
+                    print(f"{cred.account} {cred.username} {cred.password} {cred.email}")
+                    print('\n')
+                    
+            else:
+                print('/n')
+                print("you seem to have no credentials")
+                print('/n')
                 
+        elif short_code == 'fc':
+            print("enter the email you want to find with it's credentials")
+            e_address= input()
+            if check_account_exist(e_address):
+                searched_email= find_credential(e_address)
+                print(f"{searched_email.name},{searched_email.email}")
+                print('-'*20)
+                print(f"AccountName.....{searched_email.account}")
+                print(f"Email.....{searched_email.email}")
+                print(f"username.....{searched_email.name}")
+                                
+                    
             
 if __name__ == '__main__':
 
