@@ -1,20 +1,21 @@
-#!/usr/bin/env python3
-#!/usr/bin/env python2
+#!/usr/bin/env python3.6
+# !/usr/bin/env python2
 from user import User
 from credentials import Credential
 
-def create_account(username,password,email,account):
+def create_account(name,passwd,email):
     '''
     function that creates an ccount for a user
     '''
-    new_user= Credential(username,password,email,account)
+    new_user= User(name,passwd,email)
     return new_user
 
-def save_credential(credential):
+def save_users(user):
     '''
     function that saves credentials
     '''
-    credential.save_credential()
+    
+    user.save_user()
     
 def delete_credential(credential):
     '''
@@ -47,21 +48,20 @@ def main():
             print('\n')
             
             print('username....')
-            username= input()
+            names= input()
             
-            print('social media platform....')
-            account= input()
             
             print('password....')
-            password= input()
+            passwds= input()
             
             print('email....')
-            email= input()
+            emails= input()
             
             
-            save_credential(create_account(username,password,email,account))# create and save account
+            save_users(User(names,passwds,emails))
             print('\n')
-            print(f"New Account {username} {password} {email} {account} created")
+            print(User.user_list)
+            print(f"New Account {names} {passwds} {emails}  created")
             
 if __name__ == '__main__':
 
