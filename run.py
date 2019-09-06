@@ -20,6 +20,13 @@ def create_account(name,passwd,email):
     new_user= User(name,passwd,email)
     return new_user
 
+def add_credential(account, username, password,email):
+    '''
+    function that adds credentials
+    '''
+    new_cred= Credential(account, username, password,email)
+    return new_cred
+
 
 
 def save_users(user):
@@ -29,11 +36,25 @@ def save_users(user):
     
     user.save_user()
 
+def save_credentials(credential):
+    '''
+    function that saves credentials
+    '''
+    credential.save_credential()
+       
+
 def find_user(e_address):
     '''
     function that finds a user by email and returns the email
     '''
     return User.find_by_email(e_address)
+
+def check_account_exist(e_address):
+    '''
+    function that checks if an account exist with that email and returns a boolean   
+    '''
+    return User.account_exist(e_address)
+    
     
     
 def delete_credential(credential):
@@ -90,7 +111,7 @@ def main():
             
             print("enter the account you created before")
             e_address=input()
-            if account_exist(e_address):
+            if check_account_exist(e_address):
                 searched_email= find_user(e_address)
                 print(f"{searched_email.name},{searched_email.email}")
                 print('-'*20)
@@ -102,14 +123,21 @@ def main():
             
             print("choose if you want to be generated a password or not: cp -create ur password, gp -app generates password for you")
             choice =input().lower()
-            if choice == cp
-            print("enter password")
-            new_passwd=input()
-            save_
+            if choice == 'cp':
+                print("enter password")
+                new_passwd=input()
+                save_credentials(add_credential(account_name,e_address,username,new_passwd))
+                print('\n')
+                print(f"new credential {account_name} {username} {e_address} {new_passwd}") 
+                
+            
             else:
                 print("your new generated password is:")
                 new_passwd= randomString(5)
                 print(new_passwd)
+                save_credential(add_credential(account_name,e_address,username,new_passwd))
+            print('\n')
+            print(f"new credential {account_name} {username} {e_address} {new_passwd}")
                 
                 
             
