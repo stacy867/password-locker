@@ -52,7 +52,7 @@ def find_credential(em_address):
     '''
     function that finds the credential
     '''
-    return Credential.find_by_email1(em_address)
+    return Credential.find_credentials(em_address)
 
 
 
@@ -61,8 +61,13 @@ def check_account_exist(e_address):
     function that checks if an account exist with that email and returns a boolean   
     '''
     return User.account_exist(e_address)
-    
-    
+
+def check_credential_exist(e_address):
+    '''
+    function that checks if credential exist with the email
+    '''
+    return Credential.credential_exist(e_address)
+        
     
 def delete_credential(credential):
     '''
@@ -86,7 +91,7 @@ def main():
     print(f"hello {user_name}.choose what u would like to do")
     
     while True:
-        print("Use these short codes while choosing: cc -create an account, vc -view credentials, dc -delete credential, ac -add credential, fc -find credentials")
+        print("Use these short codes while choosing: cc -create an account, vc -view credentials, dc -delete credential, ac -add credential")
         
         short_code=input().lower()
         
@@ -160,18 +165,8 @@ def main():
                 print("you seem to have no credentials")
                 print('/n')
                 
-        elif short_code == 'fc':
-            print("enter the email you want to find with it's credentials")
-            e_address= input()
-            if check_account_exist(e_address):
-                searched_email= find_credential(e_address)
-                print(f"{searched_email.username},{searched_email.email}")
-                print('-'*20)
-                print(f"AccountName.....{searched_email.account}")
-                print(f"Email.....{searched_email.email}")
-                print(f"username.....{searched_email.username}")
-            else:
-                print("the account does not exist")                    
+        elif short_code == 'dc':
+                               
                     
             
 if __name__ == '__main__':
