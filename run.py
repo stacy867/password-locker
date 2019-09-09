@@ -83,6 +83,8 @@ def view_credential():
     return Credential.display_credentials()  
 
 
+    
+
 def main():
     print("WELCOME TO PASSWORD LOCKER... what is your name")
     print("\n")
@@ -91,7 +93,7 @@ def main():
     print(f"hello {user_name}.choose what u would like to do")
     
     while True:
-        print("Use these short codes while choosing: cc -create an account, vc -view credentials, dc -delete credential, ac -add credential")
+        print("Use these short codes while choosing: cc -create an account, log -login, ex -exit")
         
         short_code=input().lower()
         
@@ -115,20 +117,37 @@ def main():
             print(User.user_list)
             print(f"New Account {names} {passwds} {emails}  created")
         
-        
-        elif short_code =='ac':
-            
-            print("enter the account name....")
-            account_name= input()
-            
+        elif short_code == 'log':
+            print("LOG IN")
+            print('-'*10)
+            print('\n')
             print("enter the account you created before")
             e_address=input()
             if check_account_exist(e_address):
                 searched_email= find_user(e_address)
                 print(f"{searched_email.name},{searched_email.email}")
                 print('-'*20)
+                print('\n')
+                print('thank you for logging in')
+                
             else:
-                print('the email does not exist')  
+                print('the email does not exist')
+                break
+        
+        elif short_code == "ex":
+                    print("holla .......")
+                    break
+        print("Use these short codes while choosing:  vc -view credentials, dc -delete credential, ac -add credential")
+        print('\n')
+        if short_code =='ac':
+            print('ADDING CREDENTIALS ')
+            print('-'*10)
+            print('\n')
+            print("enter the account name....")
+            account_name= input()
+            
+            print("enter the account you created before")
+            e_address=input()
             
             print("enter username....")
             username= input()      
@@ -151,21 +170,30 @@ def main():
             print('\n')
             print('\n')
             print(f"new credential {account_name} {username} {e_address} {new_passwd} created")
-                
+            
+            print("Use these short codes while choosing:  vc -view credentials, dc -delete credential, ac -add credential")        
         elif short_code == 'vc':
+            print("VIEWING CREDENTIALS")
+            print('-'*20)
+            print('\n')
             if view_credential():
                 print("here is a list of created credentials")
                 print('\n')
                 for cred in view_credential():
                     print(f"{cred.account} {cred.username} {cred.password} {cred.email}")
                     print('\n')
-                    
+                    print("Use these short codes while choosing:  vc -view credentials, dc -delete credential, ac -add credential")
             else:
                 print('/n')
                 print("you seem to have no credentials")
                 print('/n')
                 
+               
+                
         elif short_code == 'dc':
+            print('DELETING CREDENTIALS')
+            print('-'*10)
+            print('\n')
             print('enter the credential email you want to delete')
             search_email=input()
             print(check_credential_exist(search_email))
@@ -176,7 +204,8 @@ def main():
                 print(''*10)
                 searched_email.delete_credential()
                 print('credential deleted')
-            
+                print('\n')
+                print("Use these short codes while choosing:  vc -view credentials, dc -delete credential, ac -add credential")
             else:
                 print("that credential does not exist")    
                                
