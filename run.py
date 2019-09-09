@@ -69,7 +69,7 @@ def check_credential_exist(e_address):
     return Credential.credential_exist(e_address)
         
     
-def delete_credential(credential):
+def delete_credentials(credential):
     '''
     function that deletes credentials
     '''
@@ -166,6 +166,17 @@ def main():
                 print('/n')
                 
         elif short_code == 'dc':
+            print('enter the credential email you want to delete')
+            search_email=input()
+            if check_credential_exist(searched_email):
+                searched_email = find_credential(search_email)
+                print(f"{searched_email.account} {searched_email.username}")
+                print(''*10)
+                searched_email.delete_credential()
+                print('credential deleted')
+            
+            else:
+                print("that credential does not exist")    
                                
                     
             
