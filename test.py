@@ -49,7 +49,7 @@ class TestUser(unittest.TestCase):
         test_user=User("murenzi","12345","murenzi@gmail.com")#new user
         test_user.save_user()
         
-        email_exist = User.email_exist("murenzi@gmail.com")
+        email_exist = User.find_by_email("murenzi@gmail.com")
         self.assertTrue(email_exist)
     
     def test_check_user(self):
@@ -62,9 +62,9 @@ class TestUser(unittest.TestCase):
         
         for user in User.user_list:
             if user.name == user1.name and user.passwd == user1.passwd:
-                current_user == user.name
-                return current_user
-            self.assertEqual(current_user,Credential.check_userinput(user1.passwd,user1.name))      
+                current_user = user.name
+                # return current_user
+                self.assertEqual(current_user,User.check_user(user1.name,user1.passwd,user1.email))      
         
 
           
