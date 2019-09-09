@@ -1,6 +1,7 @@
 import unittest #importing the unittest module
 
 from user import User #importing the user class from user file
+from credentials import Credential #importing the credentials class
 
 ## user test
 class TestUser(unittest.TestCase):
@@ -37,7 +38,7 @@ class TestUser(unittest.TestCase):
         save_acct test case is to test if the account is being saved
         '''
         self.new_user.save_user()
-        self.assertEqual(len(User.user_list),3) 
+        self.assertEqual(len(User.user_list),1) 
         
     def test_account_exist(self):
         '''
@@ -50,7 +51,20 @@ class TestUser(unittest.TestCase):
         
         email_exist = User.email_exist("murenzi@gmail.com")
         self.assertTrue(email_exist)
-          
+    
+    def test_check_user(self):
+        '''
+        '''
+        self.new_user = User('stacy','1234','stacymurenzi@gmail.com')
+        self.new_user.save_user()
+        user1= User('sss','1234','sss@gmail.com')
+        user1.save_user()
+        
+        for user in User.user_list:
+            if user.name == user1.name and user.passwd == user1.passwd:
+                current_user == user.name
+                return current_user
+            self.assertEqual(current_user,Credential.check_userinput(user1.passwd,user1.name))      
         
 
           
