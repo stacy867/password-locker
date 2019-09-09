@@ -147,7 +147,7 @@ def main():
                 print("your new generated password is:")
                 new_passwd= randomString(5)
                 print(new_passwd)
-                save_credentials(add_credential(account_name,e_address,username,new_passwd))
+                save_credentials(add_credential(account_name,username,new_passwd,e_address))
             print('\n')
             print('\n')
             print(f"new credential {account_name} {username} {e_address} {new_passwd} created")
@@ -168,7 +168,9 @@ def main():
         elif short_code == 'dc':
             print('enter the credential email you want to delete')
             search_email=input()
-            if check_credential_exist(searched_email):
+            print(check_credential_exist(search_email))
+            
+            if check_credential_exist(search_email):
                 searched_email = find_credential(search_email)
                 print(f"{searched_email.account} {searched_email.username}")
                 print(''*10)
