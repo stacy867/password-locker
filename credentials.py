@@ -1,3 +1,4 @@
+import pyperclip
 class Credential:
     
     credential_list= []
@@ -26,18 +27,25 @@ class Credential:
         '''
         return cls.credential_list
     
+     
+    
     @classmethod
-    def find_by_email1(cls,e_address):
+    def credential_exist(cls,e_address):
         '''
-        method that takes in email and returns account that matches taht email.
+        method that checks if account exists from the account created
+        
         Args:
-             e_address:email to search for
+             e_address: email to search if it exists
         Returns:
-        account of person that  matches the email.
+            Boolean:True or false depending if the email exists
         '''
-        for user in cls.credential_list:
-            if user.email == e_address:
-                return user     
+        for credential in cls.credential_list:
+            print(credential.email)
+           
+            if credential.email == e_address:
+                return True         
+            else:
+                return False            
     
     @classmethod
     def find_credentials(cls,em_address):
@@ -53,4 +61,15 @@ class Credential:
         for newuser in cls.credential_list:
             if newuser.email == em_address:
                 return newuser           
-            
+    def delete_credential(self):
+        '''
+        a function that deletes a credential
+        '''
+        Credential.credential_list.remove(self)
+    
+    
+    @classmethod
+    def copy_credential(cls,email):
+        email_found = Credential.find_credentials(email) 
+        pyperclip.copy(email_found.email) 
+        # pyperclip.copy(email.found.username)  

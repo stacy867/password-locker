@@ -4,6 +4,7 @@ from user import User
 from credentials import Credential
 import random
 import string
+import pyperclip
 
 
 def randomString(stringLength):
@@ -74,7 +75,10 @@ def delete_credentials(credential):
     function that deletes credentials
     '''
     credential.delete_credential() 
-    
+def copy_email(email_address):
+    '''
+    '''
+    email_address.copy_credential(email_address)    
     
 def view_credential():
     '''
@@ -116,6 +120,7 @@ def main():
             print('\n')
             print(User.user_list)
             print(f"New Account {names} {passwds} {emails}  created")
+            print('\n')
         
         elif short_code == 'log':
             print("LOG IN")
@@ -129,6 +134,7 @@ def main():
                 print('-'*20)
                 print('\n')
                 print('thank you for logging in')
+                print('\n')
                 
             else:
                 print('the email does not exist')
@@ -137,7 +143,8 @@ def main():
         elif short_code == "ex":
                     print("holla .......")
                     break
-        print("Use these short codes while choosing:  vc -view credentials, dc -delete credential, ac -add credential")
+        
+        print("Use these short codes to deal with credentials after logging in:  vc -view credentials, dc -delete credential, ac -add credential, cd -copy credential")
         print('\n')
         if short_code =='ac':
             print('ADDING CREDENTIALS ')
@@ -148,6 +155,7 @@ def main():
             
             print("enter the account you created before")
             e_address=input()
+            
             
             print("enter username....")
             username= input()      
@@ -167,11 +175,12 @@ def main():
                 new_passwd= randomString(5)
                 print(new_passwd)
                 save_credentials(add_credential(account_name,username,new_passwd,e_address))
-            print('\n')
-            print('\n')
-            print(f"new credential {account_name} {username} {e_address} {new_passwd} created")
+                print('\n')
+               
+                print(f"new credential {account_name} {username} {e_address} {new_passwd} created")
+                print('\n')
             
-            print("Use these short codes while choosing:  vc -view credentials, dc -delete credential, ac -add credential")        
+                print("Use these short codes while choosing:  vc -view credentials, dc -delete credential, ac -add credential, cd -copy credential")        
         elif short_code == 'vc':
             print("VIEWING CREDENTIALS")
             print('-'*20)
@@ -182,11 +191,12 @@ def main():
                 for cred in view_credential():
                     print(f"{cred.account} {cred.username} {cred.password} {cred.email}")
                     print('\n')
-                    print("Use these short codes while choosing:  vc -view credentials, dc -delete credential, ac -add credential")
+                    print("Use these short codes while choosing:  vc -view credentials, dc -delete credential, ac -add credential, cd -copy credential")
+                    print('\n')
             else:
-                print('/n')
+                
                 print("you seem to have no credentials")
-                print('/n')
+                print('\n')
                 
                
                 
@@ -205,11 +215,31 @@ def main():
                 searched_email.delete_credential()
                 print('credential deleted')
                 print('\n')
-                print("Use these short codes while choosing:  vc -view credentials, dc -delete credential, ac -add credential")
+                print("Use these short codes while choosing:  vc -view credentials, dc -delete credential, ac -add credential, cd -copy credential")
             else:
                 print("that credential does not exist")    
                                
-                    
+        
+        elif short_code == 'cd':
+            print('COPYING CREDENTIALS')
+            print('-'*10)
+            print('\n')
+            print('enter the  email of a credential you want to copy')
+            search_email=input()
+            # print('enter the  username of a credential you want to copy')
+            # search_username=input()
+            print(check_credential_exist(search_email))
+            
+            if check_credential_exist(search_email):
+                searched_email = find_credential(search_email)
+                print(f"{searched_email.account} {searched_email.username}")
+                print(''*10)
+                searched_email.copy_credential(search_email)
+                print('credential copied')
+                print('\n')
+                print("Use these short codes while choosing:  vc -view credentials, dc -delete credential, ac -add credential, cd -copy credential")
+            else:
+                print("that credential does not exist")            
             
 if __name__ == '__main__':
 
